@@ -1,6 +1,7 @@
 package helpers_account
 
 import (
+	"encoding/base64"
 	"net/http"
 	"strconv"
 
@@ -8,32 +9,35 @@ import (
 	helpers "github.com/MinePokemine/notetaker/Helpers"
 )
 
-func Auth(w http.ResponseWriter, r *http.Request) (*helpers.User, error) {
-	uidStr, err := helpers.CookieOrHeader("uid", w, r)
+func Auth(w http.ResponseWriter, r *http.Request) (int, error) {
+	uidStr, err := helpers.CookieOrHeader("uid", r)
 	if err != nil {
 		http.Error(w, "UID not supplied", http.StatusBadRequest)
-		return nil, err
+		return -1, err
 	}
 
-	authStr, err := helpers.CookieOrHeader("auth", w, r)
+	authStr, err := helpers.CookieOrHeader("auth", r)
 	if err != nil {
-		http.Error(w, "UID not supplied", http.StatusBadRequest)
-		return nil, err
+		http.Error(w, "Authentication not supplied", http.StatusBadRequest)
+		return -1, err
 	}
 
 	uid, err := strconv.Atoi(uidStr)
 	if err != nil {
 		http.Error(w, "UID not a number", http.StatusBadRequest)
-		return nil, err
+		return -1, err
 	}
 
-	var auth [8]byte
-	copy(auth[:], authStr)
+	authSlice, err := base64.RawURLEncoding.DecodeString(authStr)
+	if err != nil {
+		http.Error(w, "Authentication string not a base64 Raw URL Encoding", http.StatusBadRequest)
+	}
+	auth := [32]byte(authSlice)
 
 	if !(len(data.Users) > uid) && data.Users[uid].Login == auth {
 		http.Error(w, "Invalid user id or authentication", http.StatusUnauthorized)
-		return nil, nil
+		return -1, nil
 	}
 
-	return data.Users[uid], nil
+	return uid, nil
 }

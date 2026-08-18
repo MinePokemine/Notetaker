@@ -22,9 +22,8 @@ type (
 
 	User struct {
 		Username string
-		Login    [8]byte
+		UID      int
+		Login    [32]byte
 		Projects []*Project
 	}
-
-	Null struct{}
 )

@@ -4,17 +4,16 @@ import (
 	"net/http"
 
 	data "github.com/MinePokemine/notetaker/Data"
+	helpers "github.com/MinePokemine/notetaker/Helpers"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
 )
 
-func RenameAccount(w http.ResponseWriter, r *http.Request) {
+func MyAccount(w http.ResponseWriter, r *http.Request) (helpers.User, bool) {
 	uid, _ := helpers_account.Auth(w, r)
+
 	if uid == -1 {
-		return
+		return helpers.User{}, false
 	}
 
-	usr := data.Users[uid]
-
-	usr.Username = r.Form.Get("new")
-
+	return *data.Users[uid], true
 }

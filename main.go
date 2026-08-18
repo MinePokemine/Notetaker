@@ -6,11 +6,16 @@ import (
 
 	handlers "github.com/MinePokemine/notetaker/Handlers"
 	handlers_account "github.com/MinePokemine/notetaker/Handlers/Account"
-	helpers "github.com/MinePokemine/notetaker/Helpers"
 )
 
 func main() {
-	http.HandleFunc("GET /", handlers.CreateTemplateHandler("/Templates/index.html", helpers.Null{}))
+	// Web App
+	http.HandleFunc("GET /", handlers.LoadHTML("Templates/index.html"))
+	http.HandleFunc("GET /account/signup/", handlers.LoadHTML("Templates/signup.html"))
+	http.HandleFunc("GET /account/rename/", handlers.LoadHTML("Templates/rename.html"))
+	http.HandleFunc("GET /account/", handlers.CreateFuncTemplateHandler("Templates/myaccount.html", handlers_account.MyAccount))
+
+	// API
 	http.HandleFunc("POST /api/account/signup/", handlers_account.CreateAccount)
 	http.HandleFunc("POST /api/account/rename/", handlers_account.RenameAccount)
 

@@ -2,7 +2,7 @@ package helpers
 
 import "net/http"
 
-func CookieOrHeader(key string, w http.ResponseWriter, r *http.Request) (string, error) {
+func CookieOrHeader(key string, r *http.Request) (string, error) {
 	out := r.Header.Get(key)
 
 	if out != "" {
