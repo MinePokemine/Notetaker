@@ -13,8 +13,6 @@ func RenameAccount(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	usr := data.Users[uid]
-
-	usr.Username = r.Form.Get("new")
+	data.Users[uid].Username = r.FormValue("username")
 
 }
