@@ -11,7 +11,6 @@ import (
 )
 
 func CreateAccount(w http.ResponseWriter, r *http.Request) {
-	print("Creating an Account")
 	username := r.FormValue("username")
 	if username == "" {
 		http.Error(w, "Null username", http.StatusBadRequest)
@@ -42,4 +41,6 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 		Projects: []*helpers.Project{},
 		UID:      uid,
 	})
+
+	http.Redirect(w, r, "/account/", http.StatusSeeOther)
 }

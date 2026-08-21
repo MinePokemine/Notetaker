@@ -34,7 +34,7 @@ func Auth(w http.ResponseWriter, r *http.Request) (int, error) {
 	}
 	auth := [32]byte(authSlice)
 
-	if !(len(data.Users) > uid) && data.Users[uid].Login == auth {
+	if len(data.Users) < uid && data.Users[uid].Login == auth {
 		http.Error(w, "Invalid user id or authentication", http.StatusUnauthorized)
 		return -1, nil
 	}

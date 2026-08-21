@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+    <form method="post" action="/api/projects/{{.IDInUser}}/newnote">
+        <select name="tags" multiple>
+            {{range .Tags}}
+            <option value="{{.IDInProject}}">{{.Name}}</option>
+            {{end}}
+        </select>
+
+        <textarea name="data"></textarea>
+
+        <input type="text" name="src">
+    </form>
+
+</body>
+
+</html>

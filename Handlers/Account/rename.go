@@ -15,4 +15,5 @@ func RenameAccount(w http.ResponseWriter, r *http.Request) {
 
 	data.Users[uid].Username = r.FormValue("username")
 
+	http.Redirect(w, r, "/account/", http.StatusSeeOther)
 }

@@ -10,12 +10,14 @@ func CreateTemplateHandler[T any](path string, args T) func(http.ResponseWriter,
 		t, err := template.ParseFiles(path)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		err = t.Execute(w, args)
 
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 	}
 }

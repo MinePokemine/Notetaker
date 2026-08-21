@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html>
+
+    <p>Username: {{.Username}}</p>
+    <p>Account ID: {{.UID}}</p>
+    <a href="/account/rename">Rename Account</a>
+    <p>Projects:</p>
+    <ul>
+    {{range .Projects}} <li><a href="/projects/{{.IDInUser}}">{{.Name}}</a></li> {{end}}
+    <li><a href="/prjoects/new">New</a></li>
+    </ul>
+</html>

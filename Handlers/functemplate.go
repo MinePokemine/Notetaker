@@ -10,6 +10,7 @@ func CreateFuncTemplateHandler[T any](path string, getArgs func(http.ResponseWri
 		t, err := template.ParseFiles(path)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		args, work := getArgs(w, r)
@@ -22,6 +23,7 @@ func CreateFuncTemplateHandler[T any](path string, getArgs func(http.ResponseWri
 
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 	}
 }

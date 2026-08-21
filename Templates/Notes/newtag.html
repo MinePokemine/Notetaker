@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+    <form method="post" action="/api/projects/{{.IDInUser}}/newtag">
+        <select name="parents" multiple>
+            {{range .Tags}}
+            <option value="{{.IDInProject}}">{{.Name}}</option>
+            {{end}}
+        </select>
+
+        <input type="text" name="name">
+    </form>
+
+</body>
+
+</html>
