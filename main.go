@@ -11,18 +11,22 @@ import (
 )
 
 func main() {
+
 	// Web App
-	http.HandleFunc("GET /", handlers.LoadHTML("Templates/index.html"))
+	http.HandleFunc("GET /", handlers.LoadHTML("index.html"))
 
-	http.HandleFunc("GET /account/signup", handlers.LoadHTML("Templates/Account/signup.html"))
-	http.HandleFunc("GET /account/rename", handlers.LoadHTML("Templates/Account/rename.html"))
-	http.HandleFunc("GET /account", handlers.CreateFuncTemplateHandler("Templates/Account/my.html", handlers_account.MyAccount))
+	http.HandleFunc("GET /account/signup", handlers.LoadHTML("Account/signup.html"))
+	http.HandleFunc("GET /account/rename", handlers.LoadHTML("Account/rename.html"))
+	http.HandleFunc("GET /account", handlers.CreateFuncTemplateHandler("Account/my.html", handlers_account.MyAccount))
 
-	http.HandleFunc("GET /prjoects/new", handlers.LoadHTML("Templates/Projects/new.html"))
-	http.HandleFunc("GET /projects/{pid}", handlers.CreateFuncTemplateHandler("Templates/Projects/project.html", handlers_projects.Project))
+	http.HandleFunc("GET /prjoects/new", handlers.LoadHTML("Projects/new.html"))
+	http.HandleFunc("GET /projects/{pid}", handlers.CreateFuncTemplateHandler("Projects/project.html", handlers_projects.Project))
 
-	http.HandleFunc("GET /projects/{pid}/newtag", handlers.CreateFuncTemplateHandler("Templates/Notes/newtag.html", handlers_projects.Project))
-	http.HandleFunc("GET /projects/{pid}/newnote", handlers.CreateFuncTemplateHandler("Templates/Notes/newnote.html", handlers_projects.Project))
+	http.HandleFunc("GET /projects/{pid}/newtag", handlers.CreateFuncTemplateHandler("Notes/newtag.html", handlers_projects.Project))
+	http.HandleFunc("GET /projects/{pid}/newnote", handlers.CreateFuncTemplateHandler("Notes/newnote.html", handlers_projects.Project))
+
+	http.HandleFunc("GET /projects/{pid}/search", handlers.CreateFuncTemplateHandler("Notes/startsearch.html", handlers_projects.Project))
+	http.HandleFunc("GET /projects/{pid}/searchpage", handlers.CreateFuncTemplateHandler("Notes/search.html", handlers_notes.Search))
 
 	// API
 	http.HandleFunc("POST /api/account/signup", handlers_account.CreateAccount)

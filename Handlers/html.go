@@ -2,15 +2,16 @@ package handlers
 
 import (
 	"net/http"
-	"os"
+
+	templates "github.com/MinePokemine/notetaker/Templates"
 )
 
-func LoadHTML(path string) func(http.ResponseWriter, *http.Request) {
+func LoadHTML(name string) func(http.ResponseWriter, *http.Request) {
 	// Read the entire file into memory
-	content, err := os.ReadFile(path)
+	content, err := templates.ReadFile(name)
 	if err != nil {
 		return func(w http.ResponseWriter, r *http.Request) {
-			http.Error(w, "Failed to load html file "+path, http.StatusInternalServerError)
+			http.Error(w, "Failed to load html file "+name, http.StatusInternalServerError)
 		}
 	}
 

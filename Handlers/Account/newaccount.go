@@ -42,5 +42,5 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 		UID:      uid,
 	})
 
-	http.Redirect(w, r, "/account/", http.StatusSeeOther)
+	http.Redirect(w, r, "/account", http.StatusSeeOther)
 }

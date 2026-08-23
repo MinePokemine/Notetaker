@@ -1,13 +1,14 @@
 package handlers
 
 import (
-	"html/template"
 	"net/http"
+
+	templates "github.com/MinePokemine/notetaker/Templates"
 )
 
-func CreateTemplateHandler[T any](path string, args T) func(http.ResponseWriter, *http.Request) {
+func CreateTemplateHandler[T any](name string, args T) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		t, err := template.ParseFiles(path)
+		t, err := templates.Template(name)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
