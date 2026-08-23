@@ -6,7 +6,7 @@ import (
 	"io/fs"
 )
 
-//go:embed **/*.html
+//go:embed all:*
 var Files embed.FS
 
 func ReadFile(name string) ([]byte, error) {

@@ -11,9 +11,8 @@ import (
 )
 
 func main() {
-
 	// Web App
-	http.HandleFunc("GET /", handlers.LoadHTML("index.html"))
+	http.HandleFunc("GET /", handlers.LoadHTML("Index/index.html"))
 
 	http.HandleFunc("GET /account/signup", handlers.LoadHTML("Account/signup.html"))
 	http.HandleFunc("GET /account/rename", handlers.LoadHTML("Account/rename.html"))
