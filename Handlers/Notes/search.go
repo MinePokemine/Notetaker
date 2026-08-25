@@ -1,6 +1,7 @@
 package handlers_notes
 
 import (
+	"fmt"
 	"net/http"
 	"slices"
 	"strconv"
@@ -12,6 +13,7 @@ import (
 )
 
 func Search(w http.ResponseWriter, r *http.Request) ([]helpers.Note, bool) {
+	fmt.Println("Searching")
 	uid, _ := helpers_account.Auth(w, r)
 	if uid < 0 {
 		return []helpers.Note{}, false
@@ -30,8 +32,11 @@ func Search(w http.ResponseWriter, r *http.Request) ([]helpers.Note, bool) {
 	}
 	project := user.Projects[pID]
 
-	methodstr := r.PathValue("method")
+	methodstr := r.FormValue("method")
 	var isAny bool
+	if methodstr == "" {
+		http.Error(w, "Method not supplied", http.StatusBadRequest)
+	}
 	if strings.ToLower(methodstr) == "any" {
 		isAny = true
 	} else if strings.ToLower(methodstr) == "all" {
@@ -67,23 +72,28 @@ func Search(w http.ResponseWriter, r *http.Request) ([]helpers.Note, bool) {
 	var notes []helpers.Note
 
 	for _, note := range project.Notes {
-		hasAny := true
-		hasAll := false
+		fmt.Println("Note")
+		hasAny := false
+		hasAll := true
 		for _, tag := range tags {
 			if !slices.ContainsFunc(note.Tags, tag.ChildOf) {
 				hasAll = false
+				fmt.Println("It's missing one")
 			} else {
 				hasAny = true
+				fmt.Println("It has one")
 			}
 		}
 		if isAny && hasAny {
+			print("Any")
 			notes = append(notes, *note)
-		} else {
-			if hasAll {
-				notes = append(notes, *note)
-			}
+		} else if !isAny && hasAll {
+			print("All")
+			notes = append(notes, *note)
 		}
 	}
+
+	fmt.Println(notes)
 
 	return notes, true
 }

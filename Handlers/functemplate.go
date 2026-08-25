@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	templates "github.com/MinePokemine/notetaker/Templates"
@@ -17,6 +18,7 @@ func CreateFuncTemplateHandler[T any](name string, getArgs func(http.ResponseWri
 		args, work := getArgs(w, r)
 
 		if !work {
+			fmt.Println("Error Loading " + name)
 			return
 		}
 

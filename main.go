@@ -27,6 +27,9 @@ func main() {
 	http.HandleFunc("GET /projects/{pid}/search", handlers.CreateFuncTemplateHandler("Notes/startsearch.html", handlers_projects.Project))
 	http.HandleFunc("GET /projects/{pid}/searchpage", handlers.CreateFuncTemplateHandler("Notes/search.html", handlers_notes.Search))
 
+	http.HandleFunc("GET /projects/{pid}/notes/{nid}", handlers.CreateFuncTemplateHandler("Notes/note.html", handlers_notes.Note))
+	http.HandleFunc("GET /projects/{pid}/tags/{tid}", handlers.CreateFuncTemplateHandler("Notes/note.html", handlers_notes.Tag))
+
 	// API
 	http.HandleFunc("POST /api/account/signup", handlers_account.CreateAccount)
 	http.HandleFunc("POST /api/account/rename", handlers_account.RenameAccount)
