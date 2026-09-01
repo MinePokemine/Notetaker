@@ -11,33 +11,37 @@ import (
 )
 
 func main() {
+	mux := http.NewServeMux()
+
 	// Web App
-	http.HandleFunc("GET /", handlers.LoadHTML("Index/index.html"))
+	mux.HandleFunc("GET /", handlers.LoadHTML("Index/index.html"))
 
-	http.HandleFunc("GET /account/signup", handlers.LoadHTML("Account/signup.html"))
-	http.HandleFunc("GET /account/rename", handlers.LoadHTML("Account/rename.html"))
-	http.HandleFunc("GET /account", handlers.CreateFuncTemplateHandler("Account/my.html", handlers_account.MyAccount))
+	mux.HandleFunc("GET /account/signup", handlers.LoadHTML("Account/signup.html"))
+	mux.HandleFunc("GET /account/rename", handlers.LoadHTML("Account/rename.html"))
+	mux.HandleFunc("GET /account", handlers.CreateFuncTemplateHandler("Account/my.html", handlers_account.MyAccount))
 
-	http.HandleFunc("GET /prjoects/new", handlers.LoadHTML("Projects/new.html"))
-	http.HandleFunc("GET /projects/{pid}", handlers.CreateFuncTemplateHandler("Projects/project.html", handlers_projects.Project))
+	mux.HandleFunc("GET /prjoects/new", handlers.LoadHTML("Projects/new.html"))
+	mux.HandleFunc("GET /projects/{pid}", handlers.CreateFuncTemplateHandler("Projects/project.html", handlers_projects.Project))
 
-	http.HandleFunc("GET /projects/{pid}/newtag", handlers.CreateFuncTemplateHandler("Notes/newtag.html", handlers_projects.Project))
-	http.HandleFunc("GET /projects/{pid}/newnote", handlers.CreateFuncTemplateHandler("Notes/newnote.html", handlers_projects.Project))
+	mux.HandleFunc("GET /projects/{pid}/newtag", handlers.CreateFuncTemplateHandler("Notes/newtag.html", handlers_projects.Project))
+	mux.HandleFunc("GET /projects/{pid}/newnote", handlers.CreateFuncTemplateHandler("Notes/newnote.html", handlers_projects.Project))
 
-	http.HandleFunc("GET /projects/{pid}/search", handlers.CreateFuncTemplateHandler("Notes/startsearch.html", handlers_projects.Project))
-	http.HandleFunc("GET /projects/{pid}/searchpage", handlers.CreateFuncTemplateHandler("Notes/search.html", handlers_notes.Search))
+	mux.HandleFunc("GET /projects/{pid}/search", handlers.CreateFuncTemplateHandler("Notes/startsearch.html", handlers_projects.Project))
+	mux.HandleFunc("GET /projects/{pid}/searchpage", handlers.CreateFuncTemplateHandler("Notes/search.html", handlers_notes.Search))
 
-	http.HandleFunc("GET /projects/{pid}/notes/{nid}", handlers.CreateFuncTemplateHandler("Notes/note.html", handlers_notes.Note))
-	http.HandleFunc("GET /projects/{pid}/tags/{tid}", handlers.CreateFuncTemplateHandler("Notes/note.html", handlers_notes.Tag))
+	mux.HandleFunc("GET /projects/{pid}/notes/{nid}", handlers.CreateFuncTemplateHandler("Notes/note.html", handlers_notes.Note))
+	mux.HandleFunc("GET /projects/{pid}/tags/{tid}", handlers.CreateFuncTemplateHandler("Notes/note.html", handlers_notes.Tag))
 
 	// API
-	http.HandleFunc("POST /api/account/signup", handlers_account.CreateAccount)
-	http.HandleFunc("POST /api/account/rename", handlers_account.RenameAccount)
+	mux.HandleFunc("POST /api/account/signup", handlers_account.CreateAccount)
+	mux.HandleFunc("POST /api/account/rename", handlers_account.RenameAccount)
 
-	http.HandleFunc("POST /api/prjoects/new", handlers_projects.NewProject)
+	mux.HandleFunc("POST /api/prjoects/new", handlers_projects.NewProject)
 
-	http.HandleFunc("POST /api/projects/{pid}/newtag", handlers_notes.NewTag)
-	http.HandleFunc("POST /api/projects/{pid}/newnote", handlers_notes.NewNote)
+	mux.HandleFunc("POST /api/projects/{pid}/newtag", handlers_notes.NewTag)
+	mux.HandleFunc("POST /api/projects/{pid}/newnote", handlers_notes.NewNote)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	port := ":8080"
+
+	log.Fatal(http.ListenAndServe(port, mux))
 }
