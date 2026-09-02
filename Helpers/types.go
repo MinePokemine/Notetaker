@@ -1,6 +1,8 @@
 package helpers
 
 type (
+	Set[T comparable] map[T]struct{}
+
 	Note struct {
 		IDInProject int
 		Project     *Project

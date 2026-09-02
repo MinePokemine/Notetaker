@@ -5,12 +5,36 @@ func (a *Tag) ChildOf(b *Tag) bool {
 		return true
 	}
 
-	is := false
-	for _, t := range a.Parents {
-		if t.ChildOf(b) {
-			is = true
+	bottomUp := make(Set[*Tag])
+	bottomUnchecked := make(Set[*Tag])
+	bottomUnchecked.Add(a)
+
+	topDown := make(Set[*Tag])
+	topUnchecked := make(Set[*Tag])
+	topUnchecked.Add(b)
+
+	for len(bottomUnchecked) > 0 && len(topUnchecked) > 0 {
+		bottomUp.AddAll(bottomUnchecked)
+		topDown.AddAll(topUnchecked)
+
+		var newB Set[*Tag]
+		for b := range bottomUnchecked {
+			if topDown.Contains(b) {
+				return true
+			}
+			newB.AddAllSlice(b.Parents)
 		}
+		bottomUnchecked = newB
+
+		var newT Set[*Tag]
+		for t := range topUnchecked {
+			if bottomUp.Contains(t) {
+				return true
+			}
+			newT.AddAllSlice(t.Children)
+		}
+		topUnchecked = newT
 	}
 
-	return is
+	return false
 }
