@@ -17,7 +17,7 @@ func (a *Tag) ChildOf(b *Tag) bool {
 		bottomUp.AddAll(bottomUnchecked)
 		topDown.AddAll(topUnchecked)
 
-		var newB Set[*Tag]
+		newB := make(Set[*Tag])
 		for b := range bottomUnchecked {
 			if topDown.Contains(b) {
 				return true
@@ -26,7 +26,7 @@ func (a *Tag) ChildOf(b *Tag) bool {
 		}
 		bottomUnchecked = newB
 
-		var newT Set[*Tag]
+		newT := make(Set[*Tag])
 		for t := range topUnchecked {
 			if bottomUp.Contains(t) {
 				return true
