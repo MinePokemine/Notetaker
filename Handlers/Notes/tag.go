@@ -5,11 +5,11 @@ import (
 	"strconv"
 
 	data "github.com/MinePokemine/notetaker/Data"
-	helpers "github.com/MinePokemine/notetaker/Helpers"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
+	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
-func Tag(w http.ResponseWriter, r *http.Request) (*helpers.Tag, bool) {
+func Tag(w http.ResponseWriter, r *http.Request) (*t.Tag, bool) {
 	uid, _ := helpers_account.Auth(w, r)
 	if uid < 0 {
 		return nil, false

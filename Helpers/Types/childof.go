@@ -1,4 +1,4 @@
-package helpers
+package t
 
 func (a *Tag) ChildOf(b *Tag) bool {
 	if a == b {

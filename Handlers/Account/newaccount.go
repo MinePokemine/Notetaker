@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	data "github.com/MinePokemine/notetaker/Data"
-	helpers "github.com/MinePokemine/notetaker/Helpers"
+	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
 func CreateAccount(w http.ResponseWriter, r *http.Request) {
@@ -35,10 +35,10 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	}
 	http.SetCookie(w, cookie)
 
-	data.Users = append(data.Users, &helpers.User{
+	data.Users = append(data.Users, &t.User{
 		Username: username,
 		Login:    login,
-		Projects: []*helpers.Project{},
+		Projects: []*t.Project{},
 		UID:      uid,
 	})
 

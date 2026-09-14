@@ -1,5 +1,5 @@
 package data
 
-import helpers "github.com/MinePokemine/notetaker/Helpers"
+import t "github.com/MinePokemine/notetaker/Helpers/Types"
 
-var Users []*helpers.User
+var Users []*t.User

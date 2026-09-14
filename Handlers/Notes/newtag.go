@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	data "github.com/MinePokemine/notetaker/Data"
-	helpers "github.com/MinePokemine/notetaker/Helpers"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
+	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
 func NewTag(w http.ResponseWriter, r *http.Request) {
@@ -38,9 +38,9 @@ func NewTag(w http.ResponseWriter, r *http.Request) {
 	parStrs := r.Form["parents"]
 	name := r.FormValue("name")
 
-	var parents []*helpers.Tag
+	var parents []*t.Tag
 
-	tag := &helpers.Tag{
+	tag := &t.Tag{
 		Name: name,
 		//Tags:        tags,
 		//Source:      source,

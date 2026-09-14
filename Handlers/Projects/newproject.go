@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	data "github.com/MinePokemine/notetaker/Data"
-	helpers "github.com/MinePokemine/notetaker/Helpers"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
+	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
 func NewProject(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +22,7 @@ func NewProject(w http.ResponseWriter, r *http.Request) {
 	}
 	projID := len(user.Projects)
 
-	user.Projects = append(user.Projects, &helpers.Project{
+	user.Projects = append(user.Projects, &t.Project{
 		Name:     projName,
 		User:     user,
 		IDInUser: projID,
