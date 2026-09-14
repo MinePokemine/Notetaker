@@ -1,7 +1,12 @@
 package helpers
 
+type (
+	Blank             struct{}
+	Set[T comparable] map[T]Blank
+)
+
 func (s Set[T]) Add(value T) {
-	s[value] = struct{}{}
+	s[value] = Blank{}
 }
 
 func (s Set[T]) Remove(value T) {
