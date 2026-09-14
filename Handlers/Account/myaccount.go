@@ -3,7 +3,6 @@ package handlers_account
 import (
 	"net/http"
 
-	data "github.com/MinePokemine/notetaker/Data"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
 	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
@@ -15,5 +14,5 @@ func MyAccount(w http.ResponseWriter, r *http.Request) (t.User, bool) {
 		return t.User{}, false
 	}
 
-	return *data.Users[uid], true
+	return *t.Users[uid], true
 }

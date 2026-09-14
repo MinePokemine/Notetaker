@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"strconv"
 
-	data "github.com/MinePokemine/notetaker/Data"
 	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
@@ -19,7 +18,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	var login [32]byte
 	rand.Reader.Read(login[:])
 
-	uid := len(data.Users)
+	uid := len(t.Users)
 
 	cookie := &http.Cookie{
 		Name:  "auth",
@@ -35,7 +34,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	}
 	http.SetCookie(w, cookie)
 
-	data.Users = append(data.Users, &t.User{
+	t.Users = append(t.Users, &t.User{
 		Username: username,
 		Login:    login,
 		Projects: []*t.Project{},

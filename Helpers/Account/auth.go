@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	data "github.com/MinePokemine/notetaker/Data"
 	helpers "github.com/MinePokemine/notetaker/Helpers"
+	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
 func Auth(w http.ResponseWriter, r *http.Request) (int, error) {
@@ -34,7 +34,7 @@ func Auth(w http.ResponseWriter, r *http.Request) (int, error) {
 	}
 	auth := [32]byte(authSlice)
 
-	if len(data.Users) < uid && data.Users[uid].Login == auth {
+	if len(t.Users) < uid && t.Users[uid].Login == auth {
 		http.Error(w, "Invalid user id or authentication", http.StatusUnauthorized)
 		return -1, nil
 	}

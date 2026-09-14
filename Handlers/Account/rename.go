@@ -3,8 +3,8 @@ package handlers_account
 import (
 	"net/http"
 
-	data "github.com/MinePokemine/notetaker/Data"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
+	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
 func RenameAccount(w http.ResponseWriter, r *http.Request) {
@@ -13,7 +13,7 @@ func RenameAccount(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data.Users[uid].Username = r.FormValue("username")
+	t.Users[uid].Username = r.FormValue("username")
 
 	http.Redirect(w, r, "/account/", http.StatusSeeOther)
 }

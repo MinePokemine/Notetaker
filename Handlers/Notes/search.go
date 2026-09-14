@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"strings"
 
-	data "github.com/MinePokemine/notetaker/Data"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
 	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
@@ -18,7 +17,7 @@ func Search(w http.ResponseWriter, r *http.Request) ([]t.Note, bool) {
 	if uid < 0 {
 		return []t.Note{}, false
 	}
-	user := data.Users[uid]
+	user := t.Users[uid]
 
 	pIDstr := r.PathValue("pid")
 	pID, err := strconv.Atoi(pIDstr)

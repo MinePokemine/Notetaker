@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	data "github.com/MinePokemine/notetaker/Data"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
 	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
@@ -14,7 +13,7 @@ func NewProject(w http.ResponseWriter, r *http.Request) {
 	if uid < 0 {
 		return
 	}
-	user := data.Users[uid]
+	user := t.Users[uid]
 
 	projName := r.FormValue("name")
 	if projName == "" {

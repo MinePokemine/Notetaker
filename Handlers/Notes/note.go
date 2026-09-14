@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	data "github.com/MinePokemine/notetaker/Data"
 	helpers_account "github.com/MinePokemine/notetaker/Helpers/Account"
 	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
@@ -25,7 +24,7 @@ func Note(w http.ResponseWriter, r *http.Request) (*t.Note, bool) {
 		return nil, false
 	}
 
-	user := data.Users[uid]
+	user := t.Users[uid]
 	project := user.Projects[pid]
 
 	return project.Notes[nid], true
