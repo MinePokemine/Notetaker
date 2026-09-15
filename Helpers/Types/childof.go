@@ -19,7 +19,11 @@ func (a *Tag) ChildOf(b *Tag) bool {
 
 		newB := make(Set[*Tag])
 		for b := range bottomUnchecked {
-			if topDown.Contains(b) {
+			if bottomUp.Contains(b) {
+				continue
+			}
+			bottomUp.Add(b)
+			if topDown.Contains(b) || topUnchecked.Contains(b) {
 				return true
 			}
 			newB.AddAllSlice(b.Parents)
@@ -28,7 +32,11 @@ func (a *Tag) ChildOf(b *Tag) bool {
 
 		newT := make(Set[*Tag])
 		for t := range topUnchecked {
-			if bottomUp.Contains(t) {
+			if topDown.Contains(t) {
+				continue
+			}
+			topDown.Add(t)
+			if bottomUp.Contains(t) || bottomUnchecked.Contains(t) {
 				return true
 			}
 			newT.AddAllSlice(t.Children)
