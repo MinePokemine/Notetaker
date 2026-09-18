@@ -22,9 +22,10 @@ func NewProject(w http.ResponseWriter, r *http.Request) {
 	projID := len(user.Projects)
 
 	user.Projects = append(user.Projects, &t.Project{
-		Name:     projName,
-		User:     user,
-		IDInUser: projID,
+		UID: user.UID,
+		PID: projID,
+
+		Name: projName,
 	})
 
 	http.Redirect(w, r, "/projects/"+strconv.Itoa(projID), http.StatusSeeOther)

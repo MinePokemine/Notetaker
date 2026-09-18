@@ -40,11 +40,13 @@ func NewTag(w http.ResponseWriter, r *http.Request) {
 	var parents []*t.Tag
 
 	tag := &t.Tag{
+		UID: project.UID,
+		PID: project.PID,
+		TID: len(project.Tags),
+
 		Name: name,
 		//Tags:        tags,
 		//Source:      source,
-		IDInProject: len(project.Tags),
-		Project:     project,
 	}
 
 	for i, tagStr := range parStrs {

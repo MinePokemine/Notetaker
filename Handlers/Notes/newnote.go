@@ -40,11 +40,13 @@ func NewNote(w http.ResponseWriter, r *http.Request) {
 	var tags []*t.Tag
 
 	note := &t.Note{
+		UID: project.UID,
+		PID: project.PID,
+		NID: len(project.Notes),
+
 		Data: data,
 		//Tags:        tags,
 		//Source:      source,
-		IDInProject: len(project.Notes),
-		Project:     project,
 	}
 
 	for i, tagStr := range tagStrs {

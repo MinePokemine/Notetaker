@@ -2,33 +2,39 @@ package t
 
 type (
 	Note struct {
-		IDInProject int
-		Project     *Project
-		Data        string
-		Source      string
-		Tags        []*Tag
+		UID int
+		PID int
+		NID int
+
+		Data   string
+		Source string
+		Tags   []*Tag
 	}
 
 	Tag struct {
-		IDInProject int
-		Project     *Project
-		Name        string
-		Children    []*Tag
-		Parents     []*Tag
-		Notes       []*Note
+		UID int
+		PID int
+		TID int
+
+		Name     string
+		Children []*Tag
+		Parents  []*Tag
+		Notes    []*Note
 	}
 
 	Project struct {
-		Name     string
-		User     *User
-		IDInUser int
-		Notes    []*Note
-		Tags     []*Tag
+		UID int
+		PID int
+
+		Name  string
+		Notes []*Note
+		Tags  []*Tag
 	}
 
 	User struct {
+		UID int
+
 		Username string
-		UID      int
 		Login    [32]byte
 		Projects []*Project
 	}
