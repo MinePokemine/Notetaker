@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	t.Users = saveload.Load("data.json")
+	t.Users = saveload.Load()
 
 	mux := http.NewServeMux()
 
@@ -37,7 +37,7 @@ func main() {
 	mux.HandleFunc("GET /projects/{pid}/tags/{tid}", handlers.CreateFuncTemplateHandler("Notes/note.html", handlers_notes.Tag))
 
 	mux.HandleFunc("GET /save", handlers.GetFuncRunHandler(func() {
-		saveload.Save(t.Usrs(), "data.json")
+		saveload.Save(t.Usrs())
 	}, handlers.LoadHTML("saved.html")))
 
 	// API
@@ -53,7 +53,7 @@ func main() {
 
 	err := http.ListenAndServe(port, mux)
 
-	saveload.Save(t.Users, "data.json")
+	saveload.Save(t.Users)
 
 	log.Fatalln(err.Error())
 }
