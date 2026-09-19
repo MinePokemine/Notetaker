@@ -8,9 +8,13 @@ import (
 	handlers_account "github.com/MinePokemine/notetaker/Handlers/Account"
 	handlers_notes "github.com/MinePokemine/notetaker/Handlers/Notes"
 	handlers_projects "github.com/MinePokemine/notetaker/Handlers/Projects"
+	t "github.com/MinePokemine/notetaker/Helpers/Types"
+	saveload "github.com/MinePokemine/notetaker/SaveLoad"
 )
 
 func main() {
+	t.Users = saveload.Load("data")
+
 	mux := http.NewServeMux()
 
 	// Web App
@@ -43,5 +47,9 @@ func main() {
 
 	port := ":8080"
 
-	log.Fatal(http.ListenAndServe(port, mux))
+	err := http.ListenAndServe(port, mux)
+
+	saveload.Save(t.Users, "data")
+
+	log.Fatalln(err.Error())
 }
