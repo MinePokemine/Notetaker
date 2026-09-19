@@ -24,30 +24,30 @@ type (
 	}
 
 	Tag struct {
-		UID int
-		PID int
-		TID int
+		UID int `json:"uid"`
+		PID int `json:"pid"`
+		TID int `json:"tid"`
 
-		Name     string
-		Children []TagReference
-		Parents  []TagReference
-		Notes    []NoteReference
+		Name     string          `json:"name"`
+		Children []TagReference  `json:"children"`
+		Parents  []TagReference  `json:"parents"`
+		Notes    []NoteReference `json:"notes"`
 	}
 
 	Project struct {
-		UID int
-		PID int
+		UID int `json:"uid"`
+		PID int `json:"pid"`
 
-		Name  string
-		Notes []*Note
-		Tags  []*Tag
+		Name  string  `json:"name"`
+		Notes []*Note `json:"notes"`
+		Tags  []*Tag  `json:"tags"`
 	}
 
 	User struct {
-		UID int
+		UID int `json:"uid"`
 
-		Username string
-		Login    [32]byte
-		Projects []*Project
+		Username string     `json:"name"`
+		Login    [32]byte   `json:"login"`
+		Projects []*Project `json:"projs"`
 	}
 )
