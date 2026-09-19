@@ -75,7 +75,7 @@ func Search(w http.ResponseWriter, r *http.Request) ([]t.Note, bool) {
 		hasAny := false
 		hasAll := true
 		for _, tag := range tags {
-			if !slices.ContainsFunc(note.Tags, tag.ChildOf) {
+			if !slices.ContainsFunc(note.Tags, tag.ChildOfRef) {
 				hasAll = false
 				fmt.Println("It's missing one")
 			} else {

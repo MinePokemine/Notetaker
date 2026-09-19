@@ -37,7 +37,7 @@ func NewTag(w http.ResponseWriter, r *http.Request) {
 	parStrs := r.Form["parents"]
 	name := r.FormValue("name")
 
-	var parents []*t.Tag
+	var parents []t.TagReference
 
 	tag := &t.Tag{
 		UID: project.UID,
@@ -60,9 +60,13 @@ func NewTag(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		parents = append(parents, project.Tags[tID])
+		parents = append(parents, t.TagReference{
+			UID: project.UID,
+			PID: project.PID,
+			TID: tID,
+		})
 
-		project.Tags[tID].Parents = append(project.Tags[tID].Parents, tag)
+		project.Tags[tID].Children = append(project.Tags[tID].Children, tag.Reference())
 	}
 
 	tag.Parents = parents

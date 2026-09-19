@@ -37,7 +37,7 @@ func NewNote(w http.ResponseWriter, r *http.Request) {
 	tagStrs := r.Form["tags"]
 	data := r.FormValue("data")
 
-	var tags []*t.Tag
+	var tags []t.TagReference
 
 	note := &t.Note{
 		UID: project.UID,
@@ -60,9 +60,9 @@ func NewNote(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		tags = append(tags, project.Tags[tID])
+		tags = append(tags, project.Tags[tID].Reference())
 
-		project.Tags[tID].Notes = append(project.Tags[tID].Notes, note)
+		project.Tags[tID].Notes = append(project.Tags[tID].Notes, note.Reference())
 	}
 
 	source := r.FormValue("src")
