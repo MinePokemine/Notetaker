@@ -4,10 +4,10 @@
 
 <body>
 
-    <form method="post" action="/api/projects/{{.IDInUser}}/newtag">
+    <form method="post" action="/api/projects/{{.PID}}/newtag">
         <select name="parents" multiple>
             {{range .Tags}}
-            <option value="{{.IDInProject}}">{{.Name}}</option>
+            <option value="{{.TID}}">{{.TID}}</option>
             {{end}}
         </select>
 

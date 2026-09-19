@@ -4,14 +4,13 @@
 
 <body>
     <h1>{{.Name}}</h1>
-    <h6>{{.User.Username}}</h6>
 
     <hr>
 
-    <p><a href="/projects/{{.IDInUser}}/newtag">New Tag</a></p>
-    <p><a href="/projects/{{.IDInUser}}/newnote">New Note</a></p>
+    <p><a href="/projects/{{.PID}}/newtag">New Tag</a></p>
+    <p><a href="/projects/{{.PID}}/newnote">New Note</a></p>
     <br>
-    <p><a href="/projects/{{.IDInUser}}/search">Search Notes</a></p>
+    <p><a href="/projects/{{.PID}}/search">Search Notes</a></p>
 </body>
 
 </html>

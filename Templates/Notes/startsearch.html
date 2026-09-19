@@ -4,10 +4,10 @@
 
 <body>
 
-<form method="GET" action="/projects/{{.IDInUser}}/searchpage">
+<form method="GET" action="/projects/{{.PID}}/searchpage">
     <select name="tags" multiple>
         {{range .Tags}}
-        <option value="{{.IDInProject}}">{{.Name}}</option>
+        <option value="{{.TID}}">{{.Name}}</option>
         {{end}}
     </select>
 
