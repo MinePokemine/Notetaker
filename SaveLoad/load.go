@@ -18,7 +18,8 @@ func Load(filename string) []*t.User {
 
 	jsonned, err := os.ReadFile(path)
 	if err != nil {
-		panic("Error loading save file: " + err.Error())
+		//panic("Error loading save file: " + err.Error())
+		return make([]*t.User, 0)
 	}
 
 	users := make([]*t.User, 0)
