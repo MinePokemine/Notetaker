@@ -8,10 +8,10 @@ import (
 	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
-func Project(w http.ResponseWriter, r *http.Request) (t.Project, bool) {
+func Project(w http.ResponseWriter, r *http.Request) (t.ProjectEx, bool) {
 	uid, _ := helpers_account.Auth(w, r)
 	if uid < 0 {
-		return t.Project{}, false
+		return t.ProjectEx{}, false
 	}
 	user := t.Users[uid]
 
@@ -20,13 +20,13 @@ func Project(w http.ResponseWriter, r *http.Request) (t.Project, bool) {
 
 	if err != nil {
 		http.Error(w, "Project ID not an integer: "+err.Error(), http.StatusBadRequest)
-		return t.Project{}, false
+		return t.ProjectEx{}, false
 	}
 
 	if projID > len(user.Projects) {
 		http.Error(w, "Invalid project id", http.StatusBadRequest)
-		return t.Project{}, false
+		return t.ProjectEx{}, false
 	}
 
-	return *user.Projects[projID], true
+	return user.Projects[projID].Expand(), true
 }

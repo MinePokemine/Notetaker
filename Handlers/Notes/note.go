@@ -8,10 +8,10 @@ import (
 	t "github.com/MinePokemine/notetaker/Helpers/Types"
 )
 
-func Note(w http.ResponseWriter, r *http.Request) (*t.Note, bool) {
+func Note(w http.ResponseWriter, r *http.Request) (t.NoteEx, bool) {
 	uid, _ := helpers_account.Auth(w, r)
 	if uid < 0 {
-		return nil, false
+		return t.NoteEx{}, false
 	}
 
 	pidStr := r.PathValue("pid")
@@ -21,11 +21,11 @@ func Note(w http.ResponseWriter, r *http.Request) (*t.Note, bool) {
 	nid, nerr := strconv.Atoi(nidStr)
 	if perr != nil || nerr != nil {
 		http.Error(w, "Illegal project or note ID", http.StatusBadRequest)
-		return nil, false
+		return t.NoteEx{}, false
 	}
 
 	user := t.Users[uid]
 	project := user.Projects[pid]
 
-	return project.Notes[nid], true
+	return project.Notes[nid].Expand(), true
 }
